@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 /*
- *  Cocurrent_yright (c) 2023 Edimilton Rocha Santana Ferreira
+ *  Copyright (c) 2023 Edimilton Rocha Santana Ferreira
  *
  *  USB Accessibility Mouse Support
  */
@@ -56,7 +56,7 @@ static int monitoring_kthread(void* in_dev) {
             input_sync(dev);
             msleep(100);
         }
-		schedule();
+	schedule();
     }
     return 1;
 }
@@ -111,8 +111,8 @@ static void usb_mouse_irq(struct urb *urb)
 	}
 
 	// Monitoring the status of the side button (BTN_SIDE)
-    side_button_state = data[0] & 0x08;
-    handle_side_button(dev, side_button_state);	
+    	side_button_state = data[0] & 0x08;
+    	handle_side_button(dev, side_button_state);	
 
 	input_sync(dev);
 resubmit:
@@ -166,7 +166,7 @@ static int usb_mouse_probe(struct usb_interface *intf, const struct usb_device_i
 		return -ENODEV;
 
 	pipe = usb_rcvintpipe(dev, endpoint->bEndpointAddress);
-	// usb_maxpacket expects three arguments the third argument must be set to 0 if it is input
+	// if usb_maxpacket expects three arguments, the third argument should be set to 0 if it is an input otherwise remove the third argument
 	maxp = usb_maxpacket(dev, pipe, 0);
 
 	mouse = kzalloc(sizeof(struct usb_mouse), GFP_KERNEL);
