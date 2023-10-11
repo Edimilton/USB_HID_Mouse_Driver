@@ -9,7 +9,7 @@ Certifique-se de ter os seguintes itens instalados no seu sistema antes de pross
 - [Make](https://www.gnu.org/software/make/)
 - Permissões de administrador (ou use `sudo` conforme necessário)
 
-## Compilando o Módulo do Kernel
+## Passo 1: Indentificando o modulo padrão
 
 
 ### Consulte o arquivo de log do kernel para coletar informações sobre o módulo padrão do mouse que está sendo usado:
@@ -37,17 +37,18 @@ ls /dev/input/
 cat /proc/bus/input/devices
 ```
 
-### Você precisa desativar o módulo padrão que controla o mouse. Substitua `nome_do_modulo_padrao` pelo nome do módulo que você identificou no passo 2:
+## Passo 2: Carregando o Módulo Personalizado
+
+### Você precisa remover o módulo padrão que controla o mouse. Substitua `nome_do_modulo_padrao` pelo nome do módulo que você identificou no passo 1:
 ```
 sudo rmmod nome_do_modulo_padrao
 ```
 
-### Use o comando `make` para gerar o arquivo `.ko`:
+### Use o comando `make` no diretorio do arquivo usbmousepwd.c para gerar o arquivo `.ko`:
 ```
 make
 ```
 
-## Carregando o Módulo Personalizado
 ### Para carregar o módulo personalizado, use o seguinte comando:
 ```
 sudo insmod usbmousepwd.ko
